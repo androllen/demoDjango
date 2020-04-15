@@ -1,0 +1,4 @@
+/envdjango
+/*.sqlite3
+/worker/__pycache__
+/.vscode
