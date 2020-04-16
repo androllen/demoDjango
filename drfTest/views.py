@@ -5,15 +5,35 @@
 # Contact: androllen#hotmail.com
 
 from django.shortcuts import render
-from rest_framework.views import APIView
-from django.http import JsonResponse
-# Create your views here.
+from rest_framework import viewsets, response
+from .models import Product
+from .serializers import UserSerializer, ProductSerializer
+from rest_framework.decorators import action
+from django.contrib.auth.models import User
 
 
-class GetMessageView(APIView):
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    def get(self, request):
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    # http://127.0.0.1:8000/products/2/changeName/?newName=qwer
+    @action(detail=True)
+    def changeName(self, request, *args, **kwargs):
         get = request.GET
-        a = get.get('a')
-        d = {'status': a, 'message': 'success'}
-        return JsonResponse(d)
+        product = self.get_object()
+        product.name = get.get('newName')
+        product.save()
+
+        return response.Response(product.name)
+    # http://127.0.0.1:8000/products/filterProducts/
+    @action(detail=False)
+    def filterProducts(self, request):
+        products = Product.objects.filter(id__in=range(3))
+        serializer = ProductSerializer(products, many=True)
+
+        return response.Response(serializer.data)

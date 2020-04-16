@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
+# Application definition   import pdb; pdb.set_trace()
 
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth',
@@ -35,12 +35,12 @@ INSTALLED_APPS = [
     'drfTest', 'rest_framework'
 ]
 
-# REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES':
-#     ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
-# }
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES':
+    ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly']
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
