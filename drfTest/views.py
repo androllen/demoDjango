@@ -10,6 +10,9 @@ from .models import Product
 from .serializers import UserSerializer, ProductSerializer
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
+# 在多个 app 中包含相同的类的情况下
+from django.contrib.auth import get_user_model 
+User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -29,10 +29,16 @@ ALLOWED_HOSTS = []
 # Application definition   import pdb; pdb.set_trace()
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 'django.contrib.auth',
-    'django.contrib.contenttypes', 'django.contrib.sessions',
-    'django.contrib.messages', 'django.contrib.staticfiles', 'polls',
-    'drfTest', 'rest_framework'
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'polls',
+    'drfTest',
+    # 'sw_ai_user',
+    'rest_framework'
 ]
 
 REST_FRAMEWORK = {
@@ -107,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
+
+# AUTH_USER_MODEL = "sw_ai_user.MyUser"
 
 LANGUAGE_CODE = 'en-us'
 
