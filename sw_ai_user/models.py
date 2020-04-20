@@ -6,11 +6,7 @@
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User, AbstractUser, PermissionsMixin, UserManager
-
-# from django.conf import settings
-# User = settings.AUTH_USER_MODEL
-
+from django.contrib.auth.models import User, PermissionsMixin, UserManager
 
 class RoleChoice(object):
     ORDINARY = 1
@@ -78,7 +74,7 @@ class MyUser(User, PermissionsMixin):
                                     default=2)
     user_session_key = models.TextField(verbose_name='记录用户session_key',
                                         default='')
-
+                                        
     objects = UserManager()
     USERNAME_FIELD = 'username'
 
