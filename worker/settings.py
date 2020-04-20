@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls',
     'drfTest',
-    # 'sw_ai_user',
+    'sw_ai_user',
     'rest_framework'
 ]
 
