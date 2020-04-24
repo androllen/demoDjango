@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -10,3 +11,13 @@ class Product(models.Model):
     description = models.CharField(max_length=500, default='')
     price = models.FloatField()
     isDelete = models.BooleanField(default=False)
+
+
+class Comment(object):
+    def __init__(self, email, content, created=None):
+        self.email = email
+        self.content = content
+        self.created = created or datetime.now()
+
+
+comment = Comment(email='leila@example.com', content='foo bar')

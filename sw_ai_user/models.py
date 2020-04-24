@@ -8,6 +8,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User, PermissionsMixin, UserManager
 
+
+class GroupChoice(object):
+    NOGROUP = 0
+    MANAGE = 1
+    NORMAL = 2
+
+
 class RoleChoice(object):
     ORDINARY = 1
     ADMINISTRATOR = 2
@@ -19,11 +26,16 @@ class MyGroup(models.Model):
     class Meta():
         db_table = 'mygroup'
 
+    TAG_GROUP_CHOICE = ((GroupChoice.NOGROUP, '未分组'),
+                        (GroupChoice.MANAGE, '管理组'),
+                        (GroupChoice.NORMAL, '普通组'))
+
     groupname = models.CharField(max_length=50, verbose_name='组名', default='')
     group_type = models.IntegerField(verbose_name='组类型',
-                                     default=2)  #0未分组1管理组2普通组
+                                     default=GroupChoice.NORMAL,
+                                     choices=TAG_GROUP_CHOICE)
     group_info = models.TextField(verbose_name='组描述信息', default='')
-    sourcenum = models.IntegerField(verbose_name='资源数', default=10)  #任务最大并发数
+    sourcenum = models.IntegerField(verbose_name='资源数', default=10)  # 任务最大并发数
     creatime = models.DateTimeField(verbose_name='创建时间', default=timezone.now)
 
 
@@ -46,8 +58,9 @@ class MyUser(User, PermissionsMixin):
                                  default='',
                                  null=True,
                                  blank=True)
-
-    tel = models.TextField(verbose_name='联系电话', max_length=20)
+                                 
+    tel = models.TextField(verbose_name='联系电话',
+                           max_length=20, null=True, blank=True)
 
     department = models.CharField(verbose_name='部门',
                                   max_length=100,
@@ -71,10 +84,10 @@ class MyUser(User, PermissionsMixin):
     which_group = models.ForeignKey(MyGroup,
                                     verbose_name='用户归属组',
                                     on_delete=models.SET_DEFAULT,
-                                    default=2)
+                                    default=GroupChoice.NORMAL)
     user_session_key = models.TextField(verbose_name='记录用户session_key',
                                         default='')
-                                        
+
     objects = UserManager()
     USERNAME_FIELD = 'username'
 
@@ -88,3 +101,4 @@ class MyUser(User, PermissionsMixin):
 #                                   verbose_name='绑定用户',
 #                                   on_delete=models.CASCADE,
 #                                   null=True)
+

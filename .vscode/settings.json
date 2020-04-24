@@ -1,4 +1,4 @@
 {
   "python.pythonPath": "envdjango\\Scripts\\python.exe",
-  "python.formatting.provider": "yapf"
+  "python.formatting.provider": "autopep8"
 }

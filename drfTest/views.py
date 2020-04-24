@@ -6,18 +6,32 @@
 
 from django.shortcuts import render
 from rest_framework import viewsets, response
-from .models import Product
+from .models import Product, comment
 from .serializers import UserSerializer, ProductSerializer
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
-# 在多个 app 中包含相同的类的情况下
-from django.contrib.auth import get_user_model 
-User = get_user_model()
+from drfTest.serializers import CommentSerializer
+from rest_framework.renderers import JSONRenderer
+import io
+from rest_framework.parsers import JSONParser
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    serializer = CommentSerializer(comment)
+    print(serializer.data)
+
+    json_data = JSONRenderer().render(serializer.data)
+    print(json_data)
+
+    stream = io.BytesIO(json_data)
+    data = JSONParser().parse(stream)
+
+    serializer = CommentSerializer(data=data)
+    serializer.is_valid()
+    serializer.validated_data
 
 
 class ProductViewSet(viewsets.ModelViewSet):
