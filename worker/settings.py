@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'exp',
     'drfTest',
     'sw_ai_user',
     'rest_framework'
