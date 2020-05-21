@@ -51,3 +51,8 @@ class KeyValue(models.Model):
         auto_now=True, verbose_name='添加时间')
 
     description = models.CharField(max_length=150, verbose_name='字典描述')
+    # https://www.jianshu.com/p/82cb876bb426
+    # https://www.jianshu.com/p/610893a91f62
+    # file upload
+    url = models.FileField(null=True, upload_to='keyvalue',
+                           blank=False, verbose_name='file url')
