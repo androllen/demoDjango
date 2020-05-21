@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls',
     'exp',
+    'keyvalue',
     'drfTest',
     'sw_ai_user',
     'rest_framework'
@@ -85,8 +86,7 @@ WSGI_APPLICATION = 'worker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'worker.db'),
-        'CONN_MAX_AGE': 120
+        'NAME': os.path.join(BASE_DIR, 'worker.db')
     }
 }
 
@@ -129,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Media files --  Uploaded files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
