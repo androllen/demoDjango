@@ -1,18 +1,20 @@
-from django.shortcuts import render
-from rest_framework import permissions, response, viewsets
+from rest_framework import permissions, response, mixins, viewsets
 from .models import Exp
 from .serializers import ExpSerializer
-from rest_framework.decorators import action
 import datetime
 
 
-class ExpViewSet(viewsets.ModelViewSet):
+class ExpViewSet(mixins.RetrieveModelMixin,
+                 mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
+                 mixins.ListModelMixin,
+                 viewsets.GenericViewSet):
+
     queryset = Exp.objects.all()
     serializer_class = ExpSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    
-    def list(self, request):
+    def list(self, request, *args, **kwargs):
         get = request.GET
         # 获取参数
         key_name = get.get('name')
@@ -22,9 +24,6 @@ class ExpViewSet(viewsets.ModelViewSet):
         start_date = get.get('start_date', default=datetime.datetime.now())
         # 获取参数
         end_date = get.get('end_date', default=datetime.datetime.now())
-
-        # start_date = datetime.datetime(2020, 1, 1, 12, 4, 0)2020-04-01T15:17:10
-        # end_date = datetime.datetime(2020, 5, 7, 12, 5, 0)2020-06-01
 
         if isinstance(key_name, str) and isinstance(key_source, str):
             # 如果参数不为空

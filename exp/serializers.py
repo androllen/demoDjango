@@ -5,10 +5,8 @@
 # Contact: androllen#hotmail.com
 
 
-from rest_framework import serializers, response
-from django.utils import timezone
+from rest_framework import serializers
 from .models import Exp
-import datetime
 
 
 class ExpSerializer(serializers.ModelSerializer):
